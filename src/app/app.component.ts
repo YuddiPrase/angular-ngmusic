@@ -22,26 +22,38 @@ export class AppComponent {
   goTo(value: String) {
     this.selectedPage = value;
     if (value === 'results') {
-      const requestOptions: any = {
-        method: 'GET',
-        redirect: 'follow'
-      };
-      fetch(`https://itunes.apple.com/search?term=${this.searchParam}`, requestOptions)
-        .then(response => response.text())
-        .then((res: any) => {
-          if (res) {
-            try {
-              const ls = JSON.parse(res);
-              if (ls && ls.results && ls.results.length > 0) {
-                this.listSong = ls.results;
-              }
-            } catch (x) {
-              console.warn(x);
-            }
-          }
-        })
-        .catch(error => console.log('error', error));
+      this.setModalSearch();
+      this.loadSearch(true);
     }
+  }
+
+  loadSearch(isinit?: boolean) {
+    const requestOptions: any = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    const params = {
+      term: this.searchParam,
+      limit: 25
+    };
+    const query = Object.keys(params)
+                 .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                 .join('&');
+    fetch(`https://itunes.apple.com/search?${query}`, requestOptions)
+      .then(response => response.text())
+      .then((res: any) => {
+        if (res) {
+          try {
+            const ls = JSON.parse(res);
+            if (ls && ls.results && ls.results.length > 0) {
+              this.listSong = ls.results;
+            }
+          } catch (x) {
+            console.warn(x);
+          }
+        }
+      })
+      .catch(error => console.log('error', error));
   }
 
   setModalSearch() {
