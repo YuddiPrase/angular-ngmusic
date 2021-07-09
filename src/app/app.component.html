@@ -1,0 +1,85 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="background-color: blueviolet; display: flex; align-items: flex-end; height: 100%; width: 100%;" *ngIf="selectedPage == 'home'">
+
+    <div style="flex-direction: column; flex: 1; padding-bottom: 20px;">
+      <div class="search-input-container">
+        <input class="search-input" type="search" placeholder="Artist / Album / Title" [(ngModel)]="searchParam">
+      </div>
+
+      <div (click)="goTo('results')" style="background-color: rgba(255,255,255,0.3); margin: 8px 20px; border-radius: 50px; padding: 12px; text-align: center;">
+        <span style="color: white;">Search</span>
+      </div>
+    </div>
+
+</div>
+
+<div class="result" *ngIf="selectedPage == 'results'">
+  <div class="header-around">
+  </div>
+  <div class="header">
+    <div style="padding: 15px;" (click)="goTo('home')">
+      <img src="assets/images/menu.png" srcset="assets/images/menu.png, assets/images/menu@2x.png 2x, assets/images/menu@3x.png 3x" alt="menu"/>
+    </div>
+    <div>
+      <span style="color: white;">ngmusic</span>
+    </div>
+    <div style="padding: 15px;" (click)="setModalSearch()">
+      <img src="assets/images/search.png" srcset="assets/images/search.png, assets/images/search@2x.png 2x, assets/images/search@3x.png 3x" alt="search"/>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content-label">
+      <span style="font-weight: 100;">Search result for : </span>
+      <span style="color: blueviolet; font-weight: 900; font-size: larger;">{{searchParam}}</span>
+    </div>
+    <div class="content-card-container">
+
+      <div class="content-card" *ngFor="let song of listSong">
+        <div class="content-img">
+          <img src="{{song.artworkUrl30}}" srcset="{{song.artworkUrl30}}, {{song.artworkUrl60}} 1.5x, {{song.artworkUrl100}} 2x" alt="album"/>
+        </div>
+        <div style="padding: 10px; display: flex; flex: 1; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-weight: 100; font-size: small;">
+              {{song.artistName}}
+            </span>
+            <span class="trackname">
+              {{song.trackName}}
+            </span>
+          </div>
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div>
+              <span style="background-color: #12b981; padding: 5px 12px; border-radius: 20px; font-size: small; color: white;">Pop</span>
+            </div>
+            <div style="display: flex; flex-direction: row; align-items: center;">
+              <span style="color: rgb(220, 165, 0); border: solid 2px rgb(220, 165, 0); border-radius: 50px; padding: 0 5px;">$</span>
+              <span style="color: rgb(220, 165, 0); margin-left: 5px;">{{song.trackPrice}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="search-container-modals" *ngIf="modalSearch">
+  <div style="position: absolute; top: 0; right: 0;" (click)="setModalSearch()"> 
+    <span style="font-size: 25px; color: #eaeaea; font-weight: 100; padding: 10px; font-family: fantasy;">x</span>
+  </div>
+  <div style="display: flex; flex: 1; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+    <div style="width: 100%; padding-bottom: 20px;">
+      <div style="display: flex; flex: 1; flex-direction: row; justify-content: center;">
+        <span style="color: white; font-size: large; font-weight: 900;">Search</span>
+      </div>
+
+      <div class="search-input-container">
+        <input class="search-input" type="search" placeholder="Artist / Album / Title" [(ngModel)]="searchParam">
+      </div>
+
+      <div (click)="goTo('results')" style="background-color: blueviolet; margin: 8px 20px; border-radius: 50px; padding: 12px; text-align: center;">
+        <span style="color: white;">Search</span>
+      </div>
+    </div>
+  </div>
+</div>
