@@ -23,7 +23,7 @@
     <div>
       <span style="color: white;">ngmusic</span>
     </div>
-    <div style="padding: 15px;" (click)="setModalSearch()">
+    <div style="padding: 15px;" (click)="setModalSearch(true)">
       <img src="assets/images/search.png" srcset="assets/images/search.png, assets/images/search@2x.png 2x, assets/images/search@3x.png 3x" alt="search"/>
     </div>
   </div>
@@ -64,7 +64,7 @@
 </div>
 
 <div class="search-container-modals" *ngIf="modalSearch">
-  <div style="position: absolute; top: 0; right: 0;" (click)="setModalSearch()"> 
+  <div style="position: absolute; top: 0; right: 0;" (click)="setModalSearch(false)"> 
     <span style="font-size: 25px; color: #eaeaea; font-weight: 100; padding: 10px; font-family: fantasy;">x</span>
   </div>
   <div style="display: flex; flex: 1; flex-direction: column; justify-content: center; align-items: center; height: 100%;">

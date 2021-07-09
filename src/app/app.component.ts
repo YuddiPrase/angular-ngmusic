@@ -22,7 +22,7 @@ export class AppComponent {
   goTo(value: String) {
     this.selectedPage = value;
     if (value === 'results') {
-      this.setModalSearch();
+      this.setModalSearch(false);
       this.loadSearch(true);
     }
   }
@@ -56,8 +56,8 @@ export class AppComponent {
       .catch(error => console.log('error', error));
   }
 
-  setModalSearch() {
-    this.modalSearch = !this.modalSearch;
+  setModalSearch(value?: boolean) {
+    this.modalSearch = value;
   }
 
 
